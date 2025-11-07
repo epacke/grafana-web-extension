@@ -1,0 +1,37 @@
+{
+  "name": "script-manager-extension",
+  "version": "1.0.0",
+  "description": "A Tampermonkey-like Chrome extension for managing user scripts",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
+    "build:watch": "npm run build && webpack --mode=development --watch",
+    "watch": "node watch-and-reload.js",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.254",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.0",
+    "copy-webpack-plugin": "^13.0.1",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.3",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "keywords": [
+    "chrome-extension",
+    "userscript",
+    "tampermonkey",
+    "typescript"
+  ],
+  "author": "Patrik",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

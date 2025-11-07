@@ -1,0 +1,104 @@
+# Grafana Extension Configuration
+# This configuration file controls the behavior of the Grafana extension,
+# which adds custom buttons and links to the Grafana sidebar menu.
+#
+# SETUP INSTRUCTIONS:
+# 1. Copy this file to config.yaml: cp config/config.yaml.example config/config.yaml
+# 2. Update the values in config.yaml with your actual configuration
+# 3. config.yaml is gitignored and will not be committed to the repository
+
+# Logging configuration
+# Controls the verbosity of extension logs
+# Options: debug, info, warn, error
+log_level: debug
+
+# Separator configuration
+# Text displayed in the horizontal separator above the buttons/links
+separator_text: "Extension addons"
+
+# Alert buttons configuration
+# These buttons display alert counts with badges that update periodically.
+# Each button filters alerts based on label criteria and shows firing/pending counts.
+alert_buttons:
+  # Button name displayed in the sidebar
+  - name: "Alerts"
+    # Whether this button is enabled
+    enabled: true
+    # Type of button (currently only "alert" is supported)
+    type: "alert"
+    # Refresh interval in milliseconds (how often to update badge counts)
+    refresh_interval: 30000
+    # Path to icon file (relative to extension root)
+    icon: 'icons/rancher.svg'
+    # Optional domain filter (exact match or wildcard like *.xip.se)
+    # If not specified, button applies to all domains
+    # Examples: "grafana.xip.se", "*.xip.se"
+    domain: "grafana.domain.se"
+    # Label filters for alert matching
+    labels:
+      # Alerts must have all of these labels
+      has:
+        group: "rancher"
+        generated: true
+      # Alerts must NOT have any of these labels
+      dont_have:
+        template: true
+
+# Static links configuration
+# These are simple navigation links without badge functionality.
+# They can either link to alert filtering pages (using labels) or custom URLs (using href).
+static_links:
+  # Link name displayed in the sidebar
+  - name: "Alert Templates"
+    # Whether this link is enabled
+    enabled: true
+    # Path to icon file (relative to extension root)
+    icon: 'icons/template.svg'
+    # Optional domain filter (exact match or wildcard like *.xip.se)
+    # If not specified, link applies to all domains
+    # Examples: "grafana.xip.se", "*.xip.se"
+    domain: "grafana.domain.se"
+    href: '/alerting/list?search=label:generated=true'
+  
+  # Link with custom URL (href takes precedence over labels)
+  - name: "Dashboard Templates"
+    # Whether this link is enabled
+    enabled: true
+    # Path to icon file (relative to extension root)
+    icon: 'icons/dashboard.svg'
+    # Optional domain filter (exact match or wildcard like *.xip.se)
+    # If not specified, link applies to all domains
+    # Examples: "grafana.xip.se", "*.xip.se"
+    domain: "grafana.domain.se"
+    # Custom URL to navigate to (if provided, labels are ignored)
+    href: '/dashboards'
+
+  # Link with custom URL (href takes precedence over labels)
+  - name: "Dashboards"
+    # Whether this link is enabled
+    enabled: true
+    # Path to icon file (relative to extension root)
+    icon: 'icons/dashboard.svg'
+    # Optional domain filter (exact match or wildcard like *.xip.se)
+    # If not specified, link applies to all domains
+    # Examples: "grafana.xip.se", "*.xip.se"
+    domain: "grafana.domain.se"
+    # Custom URL to navigate to (if provided, labels are ignored)
+    href: '/dashboards'
+
+# Makes the edit button red if the dashboard is tagged with any of the tags
+dashboard_edit_warnings:
+  enabled: true
+  warning_message: "Varning: Denna dashboard är genererad och kommer skrivas över"
+  parent_dashboard_button_text: Edit parent dashboard
+  tags:
+    - rancher-generated
+
+alert_edit_warnings:
+  enabled: true
+  warning_message: "Varning: Denna alert är genererad och kommer skrivas över"
+  labels:
+    # Alerts must have all of these labels
+    has:
+      generated: true
+
